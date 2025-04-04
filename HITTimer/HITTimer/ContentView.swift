@@ -23,40 +23,41 @@ struct StopwatchView: View {
     
     var body: some View {
         
-        
-        VStack(spacing: 40) {
-            Text(formattedTime)
-                .font(.system(size: 50, weight: .bold, design: .monospaced))
-                .frame(width: 200, height: 100)
-
-            HStack(spacing: 20) {
-                Button(action: zeitViewmodel.startStop) {
-                    Text(zeitViewmodel.isRunning ? "Stop" : "Start")
-                        .frame(width: 100, height: 50)
-                        .background(zeitViewmodel.isRunning ? Color.red : Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+        NavigationStack{
+            VStack(spacing: 40) {
+                Text(formattedTime)
+                    .font(.system(size: 50, weight: .bold, design: .monospaced))
+                    .frame(width: 200, height: 100)
+                
+                Text("Rounds: \(zeitViewmodel.rounds)")
+                
+                HStack(spacing: 20) {
+                    Button(action: zeitViewmodel.startStop) {
+                        Text(zeitViewmodel.isRunning ? "Stop" : "Start")
+                            .frame(width: 100, height: 50)
+                            .background(zeitViewmodel.isRunning ? Color.red : Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    
+                    Button(action: zeitViewmodel.reset) {
+                        Text("Reset")
+                            .frame(width: 100, height: 50)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                 }
-
-                Button(action: zeitViewmodel.reset) {
-                    Text("Reset")
-                        .frame(width: 100, height: 50)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                NavigationLink("Configuration"){
+                    TimeConfigView(zeitViewmodel: zeitViewmodel)
                 }
             }
+            .padding()
         }
-        .padding()
+       
         
         
     }
-
-    
-    
-    
-
-   
 }
 
 struct ContentView: View {
